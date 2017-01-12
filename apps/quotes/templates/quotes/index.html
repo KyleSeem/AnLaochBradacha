@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Quotes</title>
+    <meta name="description" content="Coding Dojo, Python II, Django II, quotes">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'login_reg/css/style.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <nav>
+        <a class="btn btn-link" href="{% url 'login_reg:logout' %}" role="button">Logout</a>
+      </nav>
+      <header class="page-header">
+        <h1>Quotes <small>{% if request.session.success %}
+          Welcome {{ request.session.success }}
+        {% endif %}</small></h1>
+      </header>
+
+      <!-- {{ thisUser.id }} {{ thisUser.name }} -->
+  <!-- all quotes section -->
+    <aside>
+      <section>
+        <h4>Quotable Quotes</h4>
+          <div class="quotes" style="height:800px; border:1px solid #e3e3e3;">
+            {% if quotes %}
+              {% for quote in quotables %}
+                <article class="well">
+                  <p><strong>{{ quote.author }}:</strong> {{ quote.message }}</p>
+                  <form action="{% url 'quotes:favorite' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="user" value="{{ thisUser.id }}">
+                    <input type="hidden" name="quote" value="{{ quote.id }}">
+                    <div class="form-group">
+                      <p>Posted by
+                        <span style="font-style:italic;"><a href="{% url 'quotes:show' quote.user.id %}">{{ quote.user.alias }}</a></span>
+                        <input class="btn btn-primary" type="submit" value="Add to My List">
+                      </p>
+                    </div>
+                  </form>
+                </article>
+              {% endfor %}
+            {% endif %}
+        </div>
+      </section>
+    </aside>
+
+  <!-- favorite quotes section -->
+      <aside style="float:right;">
+        <section>
+          <h4>Your Favorites</h4>
+            <div class="quotes" style="width:100%;border:1px solid #e3e3e3; height:450px;">
+            {% if favorites %}
+              {% for favorite in favorites %}
+                <article class="well">
+                  <p><strong>{{ favorite.quote.author }}:</strong> {{ favorite.quote.message }}</p>
+                  <form action="{% url 'quotes:remove' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="favorite" value="{{ favorite.id }}">
+                    <div class="form-group">
+                      <p>Posted by
+                        <span style="font-style:italic;"><a href="{% url 'quotes:show' favorite.quote.user.id %}">{{ favorite.quote.user.alias }}</a></span>
+                        <input class="btn btn-primary" type="submit" value="Remove from My List">
+                      </p>
+                    </div>
+                  </form>
+                </article>
+              {% endfor %}
+            {% else %}
+              <p>You haven't favorited any quotes yet.</p>
+            {% endif %}
+          </div>
+        </section>
+    <!-- add quote section -->
+        <section style="margin-top:25px;">
+          <h4 style="padding-bottom:5px; border-bottom:1px solid #e3e3e3; margin-bottom:20px;">Contribute a Quote:</h4>
+          {% if messages %}
+            <div class="alert alert-danger">
+              {% for alert in messages %}
+                <p {% if messages.tags %} class="{{ messages.tags }}" {% endif %}>{{ alert }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+          <form action="{% url 'quotes:add' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="user" value="{{ thisUser.id }}">
+            <div class="form-group">
+              <label style="vertical-align:top;">Quoted By:</label>
+              <input class="form-control" type="text" name="author">
+            </div>
+            <div class="form-group">
+              <label style="vertical-align:top;">Message:</label>
+              <textarea class="form-control" rows="4" name="message"></textarea>
+            </div>
+            <div class="form-group">
+              <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+          </form>
+        </section>
+      </aside>
+
+    </div>
+  </body>
+</html>
