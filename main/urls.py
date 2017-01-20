@@ -17,7 +17,8 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^landing/', include('apps.landing.urls', namespace='landing')),
     url(r'^login_reg/', include('apps.login_reg.urls', namespace='login_reg')),
     url(r'^quotes/', include('apps.quotes.urls', namespace='quotes')),
-    url(r'^', include('apps.login_reg.urls', namespace='login_reg')),
+    url(r'^', include('apps.landing.urls', namespace='landing')),
 ]

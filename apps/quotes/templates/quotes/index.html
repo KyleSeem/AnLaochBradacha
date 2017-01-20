@@ -43,6 +43,13 @@
                       </p>
                     </div>
                   </form>
+                  {% if quote.user == thisUser %}
+                  <form action="{% url 'quotes:deleteQuote' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="quote" value="{{ quote.id }}">
+                    <input style="float:left;" class="btn btn-link" type="submit" value="delete quote">
+                  </form>
+                  {% endif %}
                 </article>
               {% endfor %}
             {% endif %}

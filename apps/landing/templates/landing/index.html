@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>An Laoch Bradacha</title>
+    <meta name="description" content="Deployment Landing Page">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'login_reg/css/style.css' %}">
+  </head>
+  <body>
+    <div class="container" style="width:800px;">
+      <header class="page-header">
+        <h1>An Laoch Bradacha <small>Landing Page</small></h1>
+        <h4><small>An Laoch Bradacha is the Irish-Gaelic translation for "The Rogue Hero"</small></h4>
+      </header>
+
+      <section>
+        <h3>Quotes Application</h3>
+        <div style="font-size:1.25em; margin-top: 20px;">
+          <p>This is the deployment for my final exam in my Python course at Coding Dojo.</p>
+          <p>I have created a simple application that allows a user to post quotes to a shared database. Each user has a "favorites" list where they can add or remove quotes that have been shared. Users also have a simple profile page that shows the quotes they have contributed.</p>
+          <p>To view the application in its entirety, a user must register. Clicking the button below will direct you to the registration page. Click the link below to view the wireframe for the application.</p>
+        </div>
+      </section>
+      <footer style="margin-top: 30px;">
+        <button style="font-size: 1.2em; margin-left: 20%; margin-right:30px;" class="btn btn-link" role="button" data-toggle="collapse" data-target="#wireframe" aria-expanded="false" aria-controls="wireframe">View Wireframe</button>
+        <a style="font-size: 1.2em;" class="btn btn-info" role="button" href="{% url 'login_reg:index' %}">View Application</a>
+        <div style="margin-top:30px;" class="collapse" id="wireframe">
+          <img style="width:1000px;;" src="{% static 'login_reg/img/wireframe.png' %}">
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

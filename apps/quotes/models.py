@@ -46,6 +46,13 @@ class QuoteManager(models.Manager):
             favorite.delete()
             return True
 
+    def destroy(self, postData):
+        if not postData:
+            return (False)
+        else:
+            delQuote = Quote.objects.get(id=int(postData['quote']))
+            delQuote.delete()
+            return (True)
 
 
 class Quote(models.Model):

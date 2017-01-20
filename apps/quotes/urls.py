@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^favorite$', views.favorite, name='favorite'),
     url(r'^remove$', views.remove, name='remove'),
     url(r'^show/(?P<id>\d+)$', views.show, name='show'),
+    url(r'^deleteQuote$', views.deleteQuote, name='deleteQuote'),
 ]
