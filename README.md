@@ -1,3 +1,3 @@
 # AnLaochBradacha
 
-This application has been deployed at: http://127.0.0.1:8000/
+This application has been deployed at: http://35.166.207.186/
