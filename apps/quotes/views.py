@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.core.urlresolvers import reverse
-from django.contrib import messages 
+from django.contrib import messages
 from django.db.models import Count
 from .models import User, Quote, Favorite
 
@@ -14,7 +14,7 @@ def index(request):
         id = request.session['thisUser']
         # print(id)
 
-        quotables = Quote.objects.exclude(favorite__this_user=id)
+        quotables = Quote.objects.exclude(favorite__this_user=id).order_by('-created_at')
         context = {
         'users':User.objects.all(),
         'thisUser':User.objects.get(id=id),
@@ -67,7 +67,6 @@ def remove(request):
         destroy = Quote.quoteManager.delete(request.POST)
         if destroy == True:
             return redirect(reverse('quotes:index'))
-
     else:
         if ('thisUser' in request.session) == False:
             messages.add_message(request, messages.INFO, 'You must be logged in to view that page.')
@@ -91,3 +90,15 @@ def show(request, id):
                 'count':count,
             }
             return render(request, 'quotes/show.html', context)
+
+def deleteQuote(request):
+    if request.method == "POST":
+        destroy = Quote.quoteManager.destroy(request.POST)
+        if destroy == True:
+            return redirect(reverse('quotes:index'))
+    else:
+        if ('thisUser' in request.session) == False:
+            messages.add_message(request, messages.INFO, 'You must be logged in to view that page.')
+            return redirect(reverse('login_reg:index'))
+        else:
+            return redirect(reverse('quotes:index'))
