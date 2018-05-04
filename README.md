@@ -1,3 +1,3 @@
-# AnLaochBradacha
+This was an exam for school - it has been named erroneously in order to disguise its version/content
 
-This application has been deployed at: http://35.166.207.186/
+"An laoch bradacha" roughly translates to "The rogue hero" in Irish Gaelic. This has nothing to do with the project, it's merely a reference to a fond memory.
